@@ -61,3 +61,29 @@ git push
 -And continue with api branch
 git switch api
 
+----------------------------------------------------------------
+Docker-compose. Now we will test docker-compose in root directory of our project.
+
+/home/devops/dockerpactice
+
+Create docker-compose.yml:
+version: '3'
+services:
+  api:
+    build: ./api
+    command: npm run start
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+
+So now we can see command and ports in docker-compose.yml, so we can delete this config in api/Dockerfile:
+FROM node:14.1.0-alpine
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+COPY . .
+
+And test:
+docker-compose up --build
+
+Check in browser. Api service is working correctly.
