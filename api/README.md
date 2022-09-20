@@ -53,4 +53,11 @@ host_ip:3001
 hot_ip:3001/test
 
 All is ok.
-Now we can join our branches (main and api)
+-Now we can join our branches (main and api)
+git switch main
+git merge api
+git push
+
+-And continue with api branch
+git switch api
+
