@@ -30,7 +30,7 @@ hot_ip:3001/test
 Api service is working correctly
 
 -------------------------------------------
-Сontainerization of spi service:
+Сontainerization of api service:
 
 - Create Dockerfile:
 FROM node:14.1.0-alpine  (my node version. alpine for smallest size of image)
