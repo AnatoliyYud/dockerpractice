@@ -28,3 +28,28 @@ hot_ip:3001/test
 *port from src/index.js code
 
 Api service is working correctly
+
+-------------------------------------------
+Сontainerization of spi service:
+
+- Create Dockerfile:
+FROM node:14.1.0-alpine  (my node version. alpine for smallest size of image)
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+EXPOSE 3001
+COPY . .
+CMD ["npm", "run", "start"]
+*later it will be modifyed because of docker-compose practice
+
+- create .dockerignore with node_modules because of it's local directory and we want to 
+prohibit copy it to container in COPY . . command. Container will create npm dependinies itself, but with our package*.json and src/index.js.
+
+docker build -t myapi:v0 .
+docker run -p 3001:3001 myapi:v0
+
+Checking again in browser:
+host_ip:3001
+hot_ip:3001/test
+
+All is ok.
