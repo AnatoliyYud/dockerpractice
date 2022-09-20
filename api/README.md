@@ -105,7 +105,8 @@ services:
       - PORT=3001
       - HOST=http://mydockerproject.com
 
-And now edit api/src/index.js for theese environments. You can see theese changes with commit history.
+And now edit api/src/index.js for theese environments. You can see theese changes with commit history.Or look at image below:
+![dev](https://user-images.githubusercontent.com/103497695/191286412-6133043a-67c3-4ff2-afe9-6f816395f6df.png)
 
 
 
