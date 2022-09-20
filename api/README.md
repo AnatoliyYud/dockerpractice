@@ -87,3 +87,25 @@ And test:
 docker-compose up --build
 
 Check in browser. Api service is working correctly.
+
+----------------------------------------------------
+Let's test environments in docker-compose. We can use theese environments in project code (api/src/index.js).
+So it's very comfortable but need to edit api/src/index.js code for this.
+
+Adding environments to docker-compose.yml:
+version: '3'
+services:
+  api:
+    build: ./api
+    command: npm run start
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - HOST=http://mydockerproject.com
+
+And now edit api/src/index.js for theese environments. You can see theese changes with commit history.
+
+
+
