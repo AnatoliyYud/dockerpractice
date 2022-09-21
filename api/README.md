@@ -108,5 +108,35 @@ services:
 And now edit api/src/index.js for theese environments. You can see theese changes with commit history.Or look at image below:
 ![dev](https://user-images.githubusercontent.com/103497695/191286412-6133043a-67c3-4ff2-afe9-6f816395f6df.png)
 
+-----------------------------------------------------
+
+Adding DB to Api service:
+we will use mongodb.
+
+npm install mongoose
+
+Were created api/src/helpers and api/strc/configuration directories with config files. And edit the api/src/index.jx
+It's not a main goal for me so we will work with docker.
+
+New docker-compose.yml with mongodb:
+version: '3'
+services:
+  api:
+    build: ./api
+    command: npm run start
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - HOST=http://mydockerproject.com
+      - MONGO_URL=mongodb://api_db:27017/api
+    depends_on:
+      - api_db
+  api_db:
+    image: mongo:latest
+
+Adding depends_on for api service for correct work - first of all starting DB, after that api service.
+
 
 
