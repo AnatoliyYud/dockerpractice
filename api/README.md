@@ -147,6 +147,9 @@ docker-compose up --build
 And we can see that a both services started well in the correct order:
 ![db1](https://user-images.githubusercontent.com/103497695/192515524-e31735ca-57db-44b9-bcce-df59b0ee0098.png)
 
+We can see inviroments:
+![image](https://user-images.githubusercontent.com/103497695/192519453-81d08554-164a-4867-814e-cd842c98dded.png)
+
 And we can see the request to DB:!
 [db2](https://user-images.githubusercontent.com/103497695/192515614-2cc743b5-5a35-4dc5-b318-b3e13c4029da.png)
 
