@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+Create-react-app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+npm init react-app frontend
+cd frontend/
+npm run start
 
-## Available Scripts
+![f1](https://user-images.githubusercontent.com/103497695/193040989-7800b3d0-6b3c-4edd-98bb-3a57bb8638c0.png)
 
-In the project directory, you can run:
 
-### `npm start`
+ ![f2](https://user-images.githubusercontent.com/103497695/193041033-028d9b77-1349-4cd1-aeb3-14907bed11e2.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+And we can edit index.js file and frontend will be updated through the sockets.
 
-### `npm test`
+So next step is to dockerization of this process. 
+I will work in frontend directory. With new docker-compose.yml
+And later there will be a merge with docker-compose files in one main file.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1)	Checking frontend in docker with DEV mode.
+We need Dockerfile:
+ ![f3](https://user-images.githubusercontent.com/103497695/193041276-8a193913-edf3-4844-861d-e283cdf3d581.png)
 
-### `npm run build`
+And docker-compose.front.yml :
+ ![f4](https://user-images.githubusercontent.com/103497695/193041296-61750ef6-e522-4c8e-9bea-936dc3103b57.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Because of problem with create-react-app in docker (because of interactive console), the solution was found through the docker-compose. So we need stdin_open and tty parameters with “true”.
+*https://github.com/facebook/create-react-app/issues/8688?ysclid=l8myczecm7860872291
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+docker-compose -f docker.compose.front.yml up --build
+And it’s working. But if we want to have online changes in DEV mode we need to add volume in docker-compose.
+ 
+![f5](https://user-images.githubusercontent.com/103497695/193041539-e23123f5-8aed-4d79-b579-08126274c7cb.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+docker-compose -f docker.compose.front.yml up --build
 
-### `npm run eject`
+Now we can see:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+ ![f6](https://user-images.githubusercontent.com/103497695/193041741-54dd906d-5f0b-41f3-b099-2502914e512c.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+And if we will change src/App.js
+![f7](https://user-images.githubusercontent.com/103497695/193041830-fe78eb77-5168-4000-b6ef-7a3854501d33.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+ And save the file.  The browser page will be update itself:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![f8](https://user-images.githubusercontent.com/103497695/193041871-c53e4986-9ce2-4599-9f2e-01ed3bb85e74.png)
 
-## Learn More
+ So it’s ok and we deleted changes in App. js
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2)	Now I want to check it in PROD mode.
+cd frontend/
+npm run build
+npm install -g serve
+serve -s build
+*Here I met a problem. And it’s not work correctly with my node:14.1.0.
+So I perform nvm use 14.16.1 and and the commands above were executed successfully:
+ ![f9](https://user-images.githubusercontent.com/103497695/193042037-5dfb7bd0-3647-4439-8a30-784c15d8aed5.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+So next step is dockerization:
+We need to add to dockerfile two commands npm run build and npm install -g serve and use node:14.16.1-alpine
+ 
+![f10](https://user-images.githubusercontent.com/103497695/193042236-19694afc-861b-42ae-a8b9-b07994544bf5.png)
 
-### Code Splitting
+And edit docker-compose.frontend.yml with new command and comments.
+![f11](https://user-images.githubusercontent.com/103497695/193042282-755817b1-65f7-4bd4-9a9f-71d352bc3d04.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+docker-compose -f docker-compose.frontend.yml up –build
 
-### Analyzing the Bundle Size
+ ![f12](https://user-images.githubusercontent.com/103497695/193042355-e0db6b3b-4acc-4356-a44a-7e2a2fcdbce5.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+So it’s ok. Now we can switch to main branch for merging.
