@@ -1,68 +1,63 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+I downloaded project from github and will check it just in PROD mode.
+git branch english-cards
 
-## Available Scripts
+git switch english-cards
 
-In the project directory, you can run:
+git branch
 
-### `npm start`
+git clone git@github.com:farlongy/english-cards
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+rm -Rf english-cards/.git
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+1)	Checking opensource project locally
+cd english-crads/
 
-### `npm test`
+nvm use 14.16.1 (already checked version for correct work)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+npm install
 
-### `npm run build`
+npm run build
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+After that we have:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+![e1](https://user-images.githubusercontent.com/103497695/193581775-c28305d7-70e8-4cb6-ac5f-8c70db4e808f.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+ 
+npm install -g serve
+serve -s build
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![e2](https://user-images.githubusercontent.com/103497695/193581808-d9b1ea4b-f0e7-4a01-91fb-7e6781d10a7a.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1)	Dockerization of this project
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Creating of Dockerfile:
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![e3](https://user-images.githubusercontent.com/103497695/193581938-bf60d94f-349a-424a-8e07-4174d81d5839.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+And create docker-compose.englishcards.yml file on root directory of our project
+ 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+![e4](https://user-images.githubusercontent.com/103497695/193581990-571ef6be-32ae-48d5-b636-98bc7d377ed9.png)
 
-### Analyzing the Bundle Size
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+docker-compose -f docker-compose.englishcards.yml up –build
 
-### Making a Progressive Web App
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+![e5](https://user-images.githubusercontent.com/103497695/193582148-ecb16bb8-36c9-4d48-9b3e-38c60a8ad817.png)
 
-### Advanced Configuration
+ 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+![e6](https://user-images.githubusercontent.com/103497695/193582166-5286601f-2b0f-4880-8bfd-e0041b270abd.png)
 
-### Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-### `npm run build` fails to minify
+![e7](https://user-images.githubusercontent.com/103497695/193582178-98ea5d79-cf58-4ee8-8416-65a3f7d9e9ff.png)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+So the third-party app is working well. We can finish the actions for this branch.
+
