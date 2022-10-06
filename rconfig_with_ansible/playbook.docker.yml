@@ -1,0 +1,64 @@
+- hosts: all
+  become: yes
+  tasks:
+  - name: Install docker packages
+    remote_user: devops
+    apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: yes
+    with_items:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+    tags:
+      - docker
+
+  - name: Add Docker s official GPG key
+    remote_user: devops
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+    tags:
+      - docker
+
+  - name: Set up the stable repository
+    remote_user: devops
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+      state: present
+      update_cache: yes
+    tags:
+      - docker
+
+  - name: Update apt packages
+    remote_user: devops
+    apt:
+      update_cache: yes
+    tags:
+      - docker
+  - name: Install docker
+    remote_user: devops
+    apt:
+      name: docker-ce
+      state: present
+      update_cache: yes
+    tags:
+      - docker
+
+  - name: Add remote "devops" user to "docker" group
+    remote_user: devops
+    user:
+      name: "devops"
+      group: "docker"
+      append: yes
+    tags:
+      - docker
+
+  - name: Install docker-compose
+    remote_user: devops
+    get_url:
+      url : https://github.com/docker/compose/releases/download/1.25.1-rc1/docker-compose-Linux-x86_64
+      dest: /usr/local/bin/docker-compose
+      mode: a+x
