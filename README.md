@@ -40,7 +40,8 @@ So we can see that all services are upping correctly. Without any errors.
 ------------------------------------------------------------------------------------------------------------
 
 So next step is to configure remote hosts with ansible.
-rconfig branch, rcongig_with_ansible folder.
+
+(rconfig branch, rconfig_with_ansible folder)
 
 
 
